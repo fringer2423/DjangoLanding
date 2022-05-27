@@ -3,10 +3,10 @@ from .models import PriceTable, PriceCard
 
 
 @admin.register(PriceCard)
-class CommentAdmin(admin.ModelAdmin):
+class PriceAdmin(admin.ModelAdmin):
     list_display = ['pc_value', 'pc_description']
 
 
 @admin.register(PriceTable)
-class CommentAdmin(admin.ModelAdmin):
+class TableAdmin(admin.ModelAdmin):
     list_display = ['pt_title', 'pt_old_price', 'pt_new_price']

@@ -3,6 +3,7 @@ from .models import Order
 from .forms import OrderForm
 from cms.models import CmsSlider
 from price.models import PriceTable, PriceCard
+from telebot.send_message import send_telegram
 
 
 def index(request):
@@ -22,8 +23,12 @@ def index(request):
 
 
 def thanks(request):
-    name = request.POST['name']
-    phone = request.POST['phone']
-    some_order = Order(order_name=name, order_phone=phone)
-    some_order.save()
-    return render(request, 'thanks.html')
+    if request.POST:
+        name = request.POST['name']
+        phone = request.POST['phone']
+        some_order = Order(order_name=name, order_phone=phone)
+        some_order.save()
+        send_telegram(name, phone)
+        return render(request, 'thanks.html', {'name': name})
+    else:
+        return render(request, 'thanks.html')
